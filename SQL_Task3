@@ -1,0 +1,38 @@
+/* MIGRATE DATA BETWEEN TWO DATABASES (E.G., FROM MYSQL TO POSTGRESQL) AND ENSURE DATA INTEGRITY*/
+
+/*We’ll create two additional tables (source_table and destination_table)*/
+-- Create source table for migration
+CREATE TABLE source_table (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    age INT,
+    city VARCHAR(100));
+
+-- Insert data into source_table
+INSERT INTO source_table (name, age, city)
+VALUES
+('John', 30, 'New York'),
+('Jane', 25, 'Los Angeles'),
+('Mike', 35, 'Chicago'),
+('Anna', 28, 'Houston');
+
+-- Create destination table for migration
+CREATE TABLE destination_table (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    age INT,
+    city VARCHAR(100)
+);
+
+-- Check data in source_table
+SELECT * FROM source_table;
+
+-- Check data in destination_table
+SELECT * FROM destination_table;
+
+/*Migration Query*/
+
+-- Migrate data from source_table to destination_table
+INSERT INTO destination_table (name, age, city)
+SELECT name, age, city
+FROM source_table;
